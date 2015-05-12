@@ -128,7 +128,7 @@ public class Utils {
 			return false;
 					 
 	}
-	private boolean isAllMovesDone(State state) {
+	public boolean isAllMovesDone(State state) {
 		int block[][] = state.getBlocks();
 		for (int i = 0; i < size; i++)
 			for (int j = 0; j < size; j++) {
@@ -142,6 +142,22 @@ public class Utils {
 	private boolean isWon(State state) {
 		if (winForRow(state, 0) || winForColumn(state, 0) || winForCross1(state, 0) || winForCross2(state, 0)
 				|| winForRow(state, 1) || winForColumn(state, 1) || winForCross1(state, 1) || winForCross2(state, 1)) {
+			return true;
+		}
+		else
+			return false;
+	}
+	public boolean winForHuman(State state)
+	{
+		if (winForRow(state, 1) || winForColumn(state, 1) || winForCross1(state, 1) || winForCross2(state, 1)) {
+			return true;
+		}
+		else
+			return false;
+	}
+	public boolean winForPC(State state)
+	{
+		if (winForRow(state, 0) || winForColumn(state, 0) || winForCross1(state, 0) || winForCross2(state, 0)) {
 			return true;
 		}
 		else

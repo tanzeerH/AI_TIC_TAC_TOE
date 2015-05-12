@@ -84,10 +84,11 @@ public class BoardUI extends JFrame implements ActionListener {
 					int colum = pos % BOARD_SIZE;
 					blocks[row][colum] = STATE;
 				}
-				/*//printBoard();
-				State state = new State(blocks);
-				//System.out.println("" + utils.isTerminal(state));
-				utils.ALPHA_BETA_SEARCH(state);*/
+				/*
+				 * //printBoard(); State state = new State(blocks);
+				 * //System.out.println("" + utils.isTerminal(state));
+				 * utils.ALPHA_BETA_SEARCH(state);
+				 */
 				if (STATE == PC_STATE) {
 					((JButton) (e.getSource())).setText("X");
 					STATE = HUMAN_STATE;
@@ -96,25 +97,27 @@ public class BoardUI extends JFrame implements ActionListener {
 					((JButton) (e.getSource())).setText("O");
 					STATE = PC_STATE;
 					// printBoard();
-					State state=new State(blocks);
-					if(utils.isTerminal(state))
-					{
-						JOptionPane.showMessageDialog(null,"terminal state..");
+					State state = new State(blocks);
+					if (utils.winForHuman(state)) {
+						JOptionPane.showMessageDialog(null, "HUMAN Won");
 						state.printBoard();
-					}
-					else
-					{
+					} else if (utils.isAllMovesDone(state)) {
+						JOptionPane.showMessageDialog(null, "Match Draw.");
+						state.printBoard();
+					} else {
 						int move = utils.ALPHA_BETA_SEARCH(state);
-	
+
 						if (move != -1) {
 							buttonList.get(move).setText("X");
 							int row = move / BOARD_SIZE;
 							int colum = move % BOARD_SIZE;
 							blocks[row][colum] = STATE;
-							state=new State(blocks);
-							if(utils.isTerminal(state))
-							{
-								JOptionPane.showMessageDialog(null,"terminal state");
+							state = new State(blocks);
+							if (utils.winForPC(state)) {
+								JOptionPane.showMessageDialog(null, "PC Won");
+								state.printBoard();
+							} else if (utils.isAllMovesDone(state)) {
+								JOptionPane.showMessageDialog(null, "Match Draw.");
 								state.printBoard();
 							}
 						} else
